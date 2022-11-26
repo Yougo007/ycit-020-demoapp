@@ -2,6 +2,8 @@ timeout: 1200s
 substitutions:
   _REGION: us-west1
   _CLUSTER:  ugo-prod-cluster
+  _PROJECT_ID: yougo-prod-369515
+  
 steps:
   - name: gcr.io/cloud-builders/kubectl
     id: Configure kubectl
