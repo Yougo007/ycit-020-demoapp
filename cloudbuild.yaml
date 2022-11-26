@@ -1,8 +1,8 @@
 timeout: 1200s
 substitutions:
-  _REGION: us-west1
-  _CLUSTER:  ugo-prod-cluster
-  _PROJECT_ID: yougo-prod-369515
+   REGION: us-west1
+   CLUSTER:  ugo-prod-cluster
+   PROJECT_ID: yougo-prod-369515
   
 steps:
   - name: gcr.io/cloud-builders/kubectl
@@ -10,22 +10,25 @@ steps:
     args:
       - cluster-info
     env:
-      - CLOUDSDK_COMPUTE_REGION=$_REGION
-      - CLOUDSDK_CONTAINER_CLUSTER=$_CLUSTER
+      - CLOUDSDK_COMPUTE_REGION=$REGION
+      - CLOUDSDK_CONTAINER_CLUSTER=$CLUSTER
+      - PROJECT_ID=$PROJECT_ID
       - KUBECONFIG=/workspace/.kube/config
       
   - name: gcr.io/cloud-builders/kubectl
     id: create app secretes
     args: ['apply', '-f', './extras/jwt/jwt-secret.yaml', '--validate=false']
     env:
-      - CLOUDSDK_COMPUTE_REGION=$_REGION
-      - CLOUDSDK_CONTAINER_CLUSTER=$_CLUSTER
+      - CLOUDSDK_COMPUTE_REGION=$REGION
+      - CLOUDSDK_CONTAINER_CLUSTER=$CLUSTER
+      - PROJECT_ID=$PROJECT_ID
       - KUBECONFIG=/workspace/.kube/config
       
   - name: gcr.io/cloud-builders/kubectl
     id: deploy bank-of-anthos
     args: ['apply', '-f', './kubernetes-manifests', '--validate=false']
     env:
-      - CLOUDSDK_COMPUTE_REGION=$_REGION
-      - CLOUDSDK_CONTAINER_CLUSTER=$_CLUSTER
+      - CLOUDSDK_COMPUTE_REGION=$REGION
+      - CLOUDSDK_CONTAINER_CLUSTER=$CLUSTER
+      - PROJECT_ID=$PROJECT_ID
       - KUBECONFIG=/workspace/.kube/config
