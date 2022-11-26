@@ -1,8 +1,8 @@
 timeout: 1200s
 substitutions:
-   REGION: us-west1
-   CLUSTER:  ugo-prod-cluster
-  _PROJECTID: yougo-prod-369515
+   _REGION: us-west1
+   _CLUSTER:  ugo-prod-cluster
+   _PROJECTID: yougo-prod-369515
   
 steps:
   - name: gcr.io/cloud-builders/kubectl
