@@ -10,8 +10,8 @@ steps:
     args:
       - cluster-info
     env:
-      - CLOUDSDK_COMPUTE_REGION=$REGION
-      - CLOUDSDK_CONTAINER_CLUSTER=$CLUSTER
+      - CLOUDSDK_COMPUTE_REGION=$_REGION
+      - CLOUDSDK_CONTAINER_CLUSTER=$_CLUSTER
       - PROJECT_ID=$_PROJECTID
       - KUBECONFIG=/workspace/.kube/config
       
@@ -19,8 +19,8 @@ steps:
     id: create app secretes
     args: ['apply', '-f', './extras/jwt/jwt-secret.yaml', '--validate=false']
     env:
-      - CLOUDSDK_COMPUTE_REGION=$REGION
-      - CLOUDSDK_CONTAINER_CLUSTER=$CLUSTER
+      - CLOUDSDK_COMPUTE_REGION=$_REGION
+      - CLOUDSDK_CONTAINER_CLUSTER=$_CLUSTER
       - PROJECT_ID=$_PROJECTID
       - KUBECONFIG=/workspace/.kube/config
       
@@ -28,7 +28,7 @@ steps:
     id: deploy bank-of-anthos
     args: ['apply', '-f', './kubernetes-manifests', '--validate=false']
     env:
-      - CLOUDSDK_COMPUTE_REGION=$REGION
-      - CLOUDSDK_CONTAINER_CLUSTER=$CLUSTER
+      - CLOUDSDK_COMPUTE_REGION=$_REGION
+      - CLOUDSDK_CONTAINER_CLUSTER=$_CLUSTER
       - PROJECT_ID=$_PROJECTID
       - KUBECONFIG=/workspace/.kube/config
