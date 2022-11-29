@@ -2,6 +2,7 @@ timeout: 1200s
 substitutions:
    _REGION: us-west1a
    _CLUSTER:  ugo-prod-cluster
+   PROJECT_ID: yougo-prod-369515
   
 steps:
   - name: gcr.io/cloud-builders/kubectl
@@ -11,7 +12,7 @@ steps:
     env:
       - CLOUDSDK_COMPUTE_REGION=$_REGION
       - CLOUDSDK_CONTAINER_CLUSTER=$_CLUSTER
-      - PROJECT_ID=yougo-prod-369515
+      - PROJECT_ID=$PROJECT_ID
       - KUBECONFIG=/workspace/.kube/config
       
   - name: gcr.io/cloud-builders/kubectl
