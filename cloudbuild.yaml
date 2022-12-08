@@ -29,13 +29,3 @@ steps:
       - CLOUDSDK_CONTAINER_CLUSTER=$_CLUSTER
       - KUBECONFIG=/workspace/.kube/config
  
-  - name: gcr.io/yougo-k8-hardway-256417/helm
-    id: Deploy CPU based HPA
-    entrypoint: 'sh'
-    args: 
-     - '-c'
-     - | 
-         for val in "balancereader" "contacts" "frontend" "ledgerwriter" "loadgenerator" "transactionhistory" "userservice" ;
-            do
-              kubectl autoscale deployment $val --cpu-percent=50 --min=1 --max=5
-          done
