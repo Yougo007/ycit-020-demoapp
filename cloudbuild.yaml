@@ -29,10 +29,13 @@ steps:
       - CLOUDSDK_CONTAINER_CLUSTER=$_CLUSTER
       - KUBECONFIG=/workspace/.kube/config
  
-  - name: gcr.io/cloud-builders/kubectl
-    id: deploy custom metric stackdriver Adapter
-    args: ['apply', '-f', 'https://raw.githubusercontent.com/GoogleCloudPlatform/k8s-stackdriver/master/custom-metrics-stackdriver-adapter/deploy/production/adapter.yaml', '--validate=false']
-    env:
-      - CLOUDSDK_COMPUTE_REGION=$_REGION
-      - CLOUDSDK_CONTAINER_CLUSTER=$_CLUSTER
-      - KUBECONFIG=/workspace/.kube/config
+  - name: gcr.io/yougo-k8-hardway-256417/helm
+    id: Deploy CPU based HPA
+    entrypoint: 'sh'
+    args: 
+     - '-c'
+     - | 
+         for val in "balancereader" "contacts" "frontend" "ledgerwriter" "loadgenerator" "transactionhistory" "userservice" ;
+            do
+              kubectl autoscale deployment $val --cpu-percent=50 --min=1 --max=5
+          done
